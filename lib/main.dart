@@ -40,18 +40,24 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ListView(children: const [
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Header(),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("image/background.png"), fit: BoxFit.cover),
         ),
-        Cards('Guia de policiamento',
-            'Lorem ipsum é simplesmente uma simulção de texto da indústria tipográfica e de impressos'),
-        Cards('Guia de policiamento',
-            'Lorem ipsum é simplesmente uma simulção de texto da indústria tipográfica e de impressos'),
-        Cards('Guia de policiamento',
-            'Lorem ipsum é simplesmente uma simulção de texto da indústria tipográfica e de impressos'),
-      ]),
+        child: ListView(children: const [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Header(),
+          ),
+          Cards('Guia de policiamento',
+              'Lorem ipsum é simplesmente uma simulção de texto da indústria tipográfica e de impressos'),
+          Cards('Guia de policiamento',
+              'Lorem ipsum é simplesmente uma simulção de texto da indústria tipográfica e de impressos'),
+          Cards('Guia de policiamento',
+              'Lorem ipsum é simplesmente uma simulção de texto da indústria tipográfica e de impressos'),
+        ]),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: _incrementCounter,
@@ -104,25 +110,26 @@ class Cards extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10.0),
                   child: const Image(
-                    width: 140,
-                    image: NetworkImage(
-                        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                    width: 160,
+                    image: AssetImage('image/livro.jpeg'),
                   ),
                 ),
                 SizedBox(
-                  width: 260,
+                  width: 280,
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           nome,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontSize: 30),
                         ),
                         const InfoPublication(
-                            'Autores', 'Cap PM Rogério Silva Pereira'),
-                        const InfoPublication('Ano de publicação', '2016'),
+                            'Autores', 'Cap PM Rogério Silva Pereira', 'person'),
+                        const InfoPublication('Ano de publicação', '2016', 'person'),
+                        const InfoPublication('130', 'Downloads', 'person'),
                         Text(
                           description,
                           textAlign: TextAlign.center,
@@ -135,18 +142,23 @@ class Cards extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  TextButton(
-                    child: const Text('Download'),
+                  ElevatedButton(
+                    child: const Row(children: <Widget>[
+                      Text('Download'),
+                      Icon(Icons.download),
+                    ]),
                     onPressed: () {/* ... */},
                   ),
-                  const SizedBox(width: 8),
-                  TextButton(
-                    child: const Text('Detalhes'),
+                  ElevatedButton(
+                    child: const Row(children: <Widget>[
+                      Text('Detalhes'),
+                      Icon(Icons.archive),
+                    ]),
                     onPressed: () {/* ... */},
                   ),
-                  const SizedBox(width: 8),
                 ],
               ),
             )
@@ -160,8 +172,9 @@ class Cards extends StatelessWidget {
 class InfoPublication extends StatelessWidget {
   final String titulo;
   final String description;
+  final String iconsTitle;
 
-  const InfoPublication(this.titulo, this.description, {Key? key})
+  const InfoPublication(this.titulo, this.description, this.iconsTitle, {Key? key})
       : super(key: key);
 
   @override
@@ -171,9 +184,9 @@ class InfoPublication extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.person),
+          const Icon(Icons.this.iconsTitle),
           Text(
-            '$titulo : $description',
+            '$titulo $description',
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           ),
