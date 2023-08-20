@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './components/response_pages.dart';
+import 'screens/response_pages.dart';
 
 import './responsive/mobile_screen.dart';
 import './responsive/tablet_screen.dart';
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Biblioteca Digital',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
@@ -34,27 +35,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _incrementCounter() {
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: const ResponsePages(
-          screenMobile: MobileScreen(),
-          screemDesktop: DesktopScreen(),
-          screenTablet: TabletScreen()),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
+    return const ResponsePages(
+      screenMobile: MobileScreen(),
+      screemDesktop: DesktopScreen(),
+      screenTablet: TabletScreen(),
     );
   }
 }

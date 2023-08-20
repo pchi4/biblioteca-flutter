@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'info.dart';
-import '../screens/details_page.dart';
+import '../details_page.dart';
 
 class Cards extends StatelessWidget {
   final String nome;
   final String description;
+  final String autores;
+  final String download;
+  final String anoPublicacao;
+  final String imgPath;
 
-  const Cards(this.nome, this.description, {Key? key}) : super(key: key);
+  const Cards(this.nome, this.description, this.anoPublicacao, this.autores,
+      this.download, this.imgPath,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +28,14 @@ class Cards extends StatelessWidget {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.all(10.0),
-                  child: const Image(
+                  child: Image(
                     width: 160,
-                    image: AssetImage('image/livro.jpeg'),
+                    image: AssetImage(imgPath),
                   ),
                 ),
-                SizedBox(
-                  width: 280,
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,27 +44,28 @@ class Cards extends StatelessWidget {
                           nome,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 30),
+                          style: const TextStyle(fontSize: 24),
                         ),
-                        const InfoPublication(
+                        InfoPublication(
                           'Autores',
-                          'Cap PM Rogério Silva Pereira',
+                          autores,
                         ),
-                        const InfoPublication(
+                        InfoPublication(
                           'Ano de publicação',
-                          '2016',
+                          anoPublicacao,
                         ),
-                        const InfoPublication(
-                          '130',
+                        InfoPublication(
                           'Downloads',
+                          download,
                         ),
                         Text(
                           description,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.justify,
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
                         ),
                       ]),
-                )
+                ))
               ],
             ),
             Container(
@@ -81,8 +90,7 @@ class Cards extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const DetailsScreen(title: 'Biblioteca Digital'),
+                          builder: (context) => const DetailsScreen(),
                         ),
                       );
                     },
