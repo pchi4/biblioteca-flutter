@@ -1,3 +1,4 @@
+import 'package:first_project/models/obra.dart';
 import 'package:flutter/material.dart';
 import 'info.dart';
 import '../details_page.dart';
@@ -17,6 +18,20 @@ class Cards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newObject = Obra(
+        titulo: nome,
+        tipo: 'livro',
+        anoPublicacao: anoPublicacao,
+        ativa: true,
+        autor: autores,
+        cadastradoPor: 'Admin',
+        capa: imgPath,
+        categoria: 'teste',
+        dataDeCadastro: 'teste',
+        documento: 'teste',
+        downoloads: download,
+        sinopse: description);
+
     return Center(
       child: Card(
         margin: const EdgeInsets.all(8.0),
@@ -87,11 +102,13 @@ class Cards extends StatelessWidget {
                       Icon(Icons.archive),
                     ]),
                     onPressed: () {
+                      var materialPageRoute = MaterialPageRoute(
+                        settings: RouteSettings(arguments: {newObject}),
+                        builder: (context) => const DetailsScreen(),
+                      );
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const DetailsScreen(),
-                        ),
+                        materialPageRoute,
                       );
                     },
                   ),
